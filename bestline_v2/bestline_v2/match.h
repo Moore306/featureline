@@ -9,7 +9,14 @@
 #include "opencv2/nonfree/features2d.hpp"
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/nonfree/nonfree.hpp>
+
+
+
+
+
 using namespace cv;
 using namespace std;
 
 int match(Mat &img1,Mat& img2,vector<Point2f>& m_LeftInlier,vector<Point2f> &m_RightInlier);
+
+int min_path(Mat &img1,Point start,Point end);

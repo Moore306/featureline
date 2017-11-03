@@ -215,25 +215,30 @@
 // 
 // 	//新建一个矩阵存储配准后四角的位置
 // 	int width = int(max(abs(scene_corners[1].x), abs(scene_corners[2].x)));
-// 	int height= img1.rows;                                                                  //或者：int height = int(max(abs(scene_corners[2].y), abs(scene_corners[3].y)));
+// 	//int height= img1.rows;
+//	int height= int(max(abs(scene_corners[2].x), abs(scene_corners[3].x)));
+//	//或者：int height = int(max(abs(scene_corners[2].y), abs(scene_corners[3].y)));
 // 	float origin_x=0,origin_y=0;
 // 	if(scene_corners[0].x<0) {
 // 		if (scene_corners[3].x<0) origin_x+=min(scene_corners[0].x,scene_corners[3].x);
 // 		else origin_x+=scene_corners[0].x;}
 // 	width-=int(origin_x);
 // 	if(scene_corners[0].y<0) {
-// 		if (scene_corners[1].y) origin_y+=min(scene_corners[0].y,scene_corners[1].y);
+// 		if (scene_corners[1].y<0) origin_y+=min(scene_corners[0].y,scene_corners[1].y);
 // 		else origin_y+=scene_corners[0].y;}
-// 	//可选：height-=int(origin_y);
+// 	height-=int(origin_y);
 // 	Mat imageturn=Mat::zeros(width,height,img1.type());
 // 
 // 	//获取新的变换矩阵，使图像完整显示
-// 	for (int i=0;i<4;i++) {scene_corners[i].x -= origin_x; } 	//可选：scene_corners[i].y -= (float)origin_y; }
+// 	for (int i=0;i<4;i++) {scene_corners[i].x -= origin_x; 
+//	scene_corners[i].y -= (float)origin_y;} 	//可选：scene_corners[i].y -= (float)origin_y; }
 // 	Mat H1=getPerspectiveTransform(obj_corners, scene_corners);
 // 
 // 	//进行图像变换，显示效果
 //	warpPerspective(img1,imageturn,H1,Size(width,height));	
 // 	imshow("image_Perspective", imageturn);
+//	imwrite("image_Perspective.jpg",imageturn);
+//	cout<<H1<<endl;
 // 	waitKey(0);
 // 
 // 

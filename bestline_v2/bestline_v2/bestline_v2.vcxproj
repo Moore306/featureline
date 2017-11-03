@@ -126,8 +126,11 @@
     <ClCompile Include="bestline_v2.cpp" />
     <ClCompile Include="bestline_v3.cpp" />
     <ClCompile Include="mainfunc.cpp" />
+    <ClCompile Include="main_test.cpp" />
     <ClCompile Include="match.cpp" />
+    <ClCompile Include="min_path.cpp" />
     <ClCompile Include="stirching_v0.cpp" />
+    <ClCompile Include="stitching_fullimage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="match.h" />

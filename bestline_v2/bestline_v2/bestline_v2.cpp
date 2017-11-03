@@ -9,6 +9,7 @@
 //#define FILENAME "scenel.bmp"
 //int main()
 //{
+//	
 //	/*char   buffer[100]; 
 //	getcwd(buffer, 100);
 //	printf( "The   current   directory   is:   %s ",   buffer); */
@@ -39,7 +40,7 @@
 //	Mat timg_r;cvtColor(imgr, timg_r, CV_BGR2GRAY);
 //	int H= imgl.rows;
 //	int W= imgl.cols;
-//
+//	double t = getTickCount();//当前滴答数 
 //	float tempE,minE;
 //	
 //	uchar *p1 = imgl.data;  // 数据指针
@@ -242,7 +243,8 @@
 //		}
 //		
 //	}
-//
+//	double t1 = (getTickCount()-t)/getTickFrequency();;//当前滴答数 
+//	cout<<"lishi "<<t1<<endl;
 //	//画出其他几条缝合线
 //	for(int i=0;i<H;i++)
 //		stiching.at<Vec3b>(i,W-n+path[i][10] )=Vec3b(0, 255, 0);
@@ -252,6 +254,7 @@
 //	imwrite("mask.jpg",mask);
 //	imwrite("pipei\\stiching.jpg",stiching);
 //	cvWaitKey();
+//	
 //	system("pause");
 //	return 0;
 //}

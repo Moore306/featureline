@@ -6,6 +6,8 @@ int match(Mat &img1,Mat &img2,vector<Point2f>& m_LeftInlier,vector<Point2f> &m_R
 {
 	initModule_nonfree();//初始化模块，使用SIFT或SURF时用到 
 	Ptr<FeatureDetector> detector = FeatureDetector::create( "SURF" );//创建SIFT特征检测器，可改成SURF/ORB
+	/*int minHessian = 400;
+	Ptr<SURF> detector = SURF::create()*/
 	Ptr<DescriptorExtractor> descriptor_extractor = DescriptorExtractor::create( "SURF" );//创建特征向量生成器，可改成SURF/ORB
 	Ptr<DescriptorMatcher> descriptor_matcher = DescriptorMatcher::create( "BruteForce" );//创建特征匹配器  
 	if( detector.empty() || descriptor_extractor.empty() )  
@@ -108,7 +110,7 @@ int match(Mat &img1,Mat &img2,vector<Point2f>& m_LeftInlier,vector<Point2f> &m_R
 	// 用RANSAC方法计算F
 	Mat m_Fundamental;
 	vector<uchar> m_RANSACStatus;       // 这个变量用于存储RANSAC后每个点的状态
-	findFundamentalMat(p1, p2, m_RANSACStatus, FM_RANSAC,30,0.8);
+	findFundamentalMat(p1, p2, m_RANSACStatus, FM_RANSAC,1,0.9);
 
 	// 计算野点个数
 

@@ -1,10 +1,5 @@
 //
-////**
-//// * @file SURF_Homography
-//// * @brief SURF detector + descriptor + FLANN Matcher + FindHomography
-//// * @author A. Huaman
-//// */
-////
+//
 //#include "match.h"
 //
 //
@@ -22,12 +17,12 @@
 //	if( detector.empty() || descriptor_extractor.empty() )  
 //		cout<<"fail to create detector!";  
 //
-//	//读入图像  
+//	读入图像  
 //	Mat img1 = imread("imgl.jpg");  
 //	Mat img2 = imread("imgr.jpg");  
 //	resize(img1,img1,Size(600,400));
 //	resize(img2,img2,Size(600,400));
-//	//特征点检测  
+//	特征点检测  
 //	double t = getTickCount();//当前滴答数  
 //	vector<KeyPoint> m_LeftKey,m_RightKey;  
 //	detector->detect( img1, m_LeftKey );//检测img1中的SIFT特征点，存储到m_LeftKey中  
@@ -35,7 +30,7 @@
 //	cout<<"图像1特征点个数:"<<m_LeftKey.size()<<endl;  
 //	cout<<"图像2特征点个数:"<<m_RightKey.size()<<endl;  
 //
-//	//根据特征点计算特征描述子矩阵，即特征向量矩阵  
+//	根据特征点计算特征描述子矩阵，即特征向量矩阵  
 //	Mat descriptors1,descriptors2;  
 //	descriptor_extractor->compute( img1, m_LeftKey, descriptors1 );  
 //	descriptor_extractor->compute( img2, m_RightKey, descriptors2 );  
@@ -47,20 +42,20 @@
 //	cout<<"图像2特征描述矩阵大小："<<descriptors2.size()  
 //		<<"，特征向量个数："<<descriptors2.rows<<"，维数："<<descriptors2.cols<<endl;  
 //
-//	//画出特征点  
+//	画出特征点  
 //	Mat img_m_LeftKey,img_m_RightKey;  
 //	drawKeypoints(img1,m_LeftKey,img_m_LeftKey,Scalar::all(-1),0);  
 //	drawKeypoints(img2,m_RightKey,img_m_RightKey,Scalar::all(-1),0);  
-//	//imshow("Src1",img_m_LeftKey);  
-//	//imshow("Src2",img_m_RightKey);  
+//	imshow("Src1",img_m_LeftKey);  
+//	imshow("Src2",img_m_RightKey);  
 //
-//	//特征匹配  
+//	特征匹配  
 //	vector<DMatch> matches;//匹配结果  
 //	descriptor_matcher->match( descriptors1, descriptors2, matches );//匹配两个图像的特征矩阵  
 //	cout<<"Match个数："<<matches.size()<<endl;  
 //
-//	//计算匹配结果中距离的最大和最小值  
-//	//距离是指两个特征向量间的欧式距离，表明两个特征的差异，值越小表明两个特征点越接近  
+//	计算匹配结果中距离的最大和最小值  
+//	距离是指两个特征向量间的欧式距离，表明两个特征的差异，值越小表明两个特征点越接近  
 //	double max_dist = 0;  
 //	double min_dist = 100;  
 //	for(int i=0; i<matches.size(); i++)  
@@ -72,7 +67,7 @@
 //	cout<<"最大距离："<<max_dist<<endl;  
 //	cout<<"最小距离："<<min_dist<<endl;  
 //
-//	//筛选出较好的匹配点  
+//	筛选出较好的匹配点  
 //	vector<DMatch> goodMatches;  
 //	for(int i=0; i<matches.size(); i++)  
 //	{  
@@ -83,27 +78,27 @@
 //	}  
 //	cout<<"goodMatch个数："<<goodMatches.size()<<endl;  
 //
-//	//画出匹配结果  
+//	画出匹配结果  
 //	Mat img_matches;  
-//	//红色连接的是匹配的特征点对，绿色是未匹配的特征点  
+//	红色连接的是匹配的特征点对，绿色是未匹配的特征点  
 //	drawMatches(img1,m_LeftKey,img2,m_RightKey,goodMatches,img_matches,  
 //		Scalar::all(-1)/*CV_RGB(255,0,0)*/,CV_RGB(0,255,0),Mat(),2);  
 //
-//	//imshow("MatchSIFT",img_matches);
-//	//imwrite("MatchSIFT.jpg",img_matches);
+//	imshow("MatchSIFT",img_matches);
+//	imwrite("MatchSIFT.jpg",img_matches);
 //	IplImage result=img_matches;
 //
 //	/*waitKey(0);*/
 //
 //
-//	//RANSAC匹配过程
+//	RANSAC匹配过程
 //	vector<DMatch> m_Matches=goodMatches;
-//	// 分配空间
+//	 分配空间
 //	int ptCount = (int)m_Matches.size();
 //	Mat p1(ptCount, 2, CV_32F);
 //	Mat p2(ptCount, 2, CV_32F);
 //
-//	// 把Keypoint转换为Mat
+//	 把Keypoint转换为Mat
 //	Point2f pt;
 //	for (int i=0; i<ptCount; i++)
 //	{
@@ -116,12 +111,12 @@
 //		p2.at<float>(i, 1) = pt.y;
 //	}
 //
-//	// 用RANSAC方法计算F
+//	 用RANSAC方法计算F
 //	Mat m_Fundamental;
 //	vector<uchar> m_RANSACStatus;       // 这个变量用于存储RANSAC后每个点的状态
 //	findFundamentalMat(p1, p2, m_RANSACStatus, FM_RANSAC,1,0.9);
 //
-//	// 计算野点个数
+//	 计算野点个数
 //
 //	int OutlinerCount = 0;
 //	for (int i=0; i<ptCount; i++)
@@ -135,7 +130,7 @@
 //	cout<<"内点数为："<<InlinerCount<<endl;
 //
 //
-//	// 这三个变量用于保存内点和匹配关系
+//	 这三个变量用于保存内点和匹配关系
 //	vector<Point2f> m_LeftInlier;
 //	vector<Point2f> m_RightInlier;
 //	vector<DMatch> m_InlierMatches;
@@ -163,13 +158,13 @@
 //		}
 //	}
 //
-//	// 把内点转换为drawMatches可以使用的格式
+//	 把内点转换为drawMatches可以使用的格式
 //	vector<KeyPoint> key1(InlinerCount);
 //	vector<KeyPoint> key2(InlinerCount);
 //	KeyPoint::convert(m_LeftInlier, key1);
 //	KeyPoint::convert(m_RightInlier, key2);
 //
-//	// 显示计算F过后的内点匹配
+//	 显示计算F过后的内点匹配
 //	Mat OutImage;
 //	/*drawMatches(img1, key1, img2, key2, m_InlierMatches, OutImage);
 //	cvNamedWindow( "Match features", 1);
@@ -178,7 +173,7 @@
 //
 //	cvDestroyAllWindows();*/
 //
-//	//##################################################
+//	##################################################
 //	int leftmost1,rightmost1,leftmost2,rightmost2;
 //	leftmost1=rightmost1=m_LeftInlier[0].y;
 //	leftmost2=rightmost2=m_RightInlier[0].y;
@@ -203,7 +198,7 @@
 //	line( img2, Point(rightmost2,0), Point(rightmost2,img2.rows), Scalar( 0, 255, 0), 1 );
 //	line( img2, Point(leftmost2,0), Point(leftmost2,img2.rows), Scalar( 0, 255, 0), 1 );
 //
-//	//选取一个AB line 区域
+//	选取一个AB line 区域
 //	int move_N=150;
 //	leftmost1=leftmost1+move_N;
 //	rightmost1=leftmost1+20;
@@ -225,131 +220,131 @@
 //
 //
 //
-//	//##################################################
+//	##################################################
 //
-//	////矩阵H用以存储RANSAC得到的单应矩阵
-//	//Mat H = findHomography( m_LeftInlier, m_RightInlier, RANSAC );
+//	//矩阵H用以存储RANSAC得到的单应矩阵
+//	Mat H = findHomography( m_LeftInlier, m_RightInlier, RANSAC );
 //
-//	////存储左图四角，及其变换到右图位置
-//	//std::vector<Point2f> obj_corners(4);
-//	//obj_corners[0] = Point(0,0); obj_corners[1] = Point( img1.cols, 0 );
-//	//obj_corners[2] = Point( img1.cols, img1.rows ); obj_corners[3] = Point( 0, img1.rows );
-//	//std::vector<Point2f> scene_corners(4);
-//	//perspectiveTransform( obj_corners, scene_corners, H);
+//	//存储左图四角，及其变换到右图位置
+//	std::vector<Point2f> obj_corners(4);
+//	obj_corners[0] = Point(0,0); obj_corners[1] = Point( img1.cols, 0 );
+//	obj_corners[2] = Point( img1.cols, img1.rows ); obj_corners[3] = Point( 0, img1.rows );
+//	std::vector<Point2f> scene_corners(4);
+//	perspectiveTransform( obj_corners, scene_corners, H);
 //
-//	////画出变换后图像位置
-//	//Point2f offset( (float)img1.cols, 0);  
-//	//line( OutImage, scene_corners[0]+offset, scene_corners[1]+offset, Scalar( 0, 255, 0), 4 );
-//	//line( OutImage, scene_corners[1]+offset, scene_corners[2]+offset, Scalar( 0, 255, 0), 4 );
-//	//line( OutImage, scene_corners[2]+offset, scene_corners[3]+offset, Scalar( 0, 255, 0), 4 );
-//	//line( OutImage, scene_corners[3]+offset, scene_corners[0]+offset, Scalar( 0, 255, 0), 4 );
-//	//imshow( "Good Matches & Object detection", OutImage );
+//	//画出变换后图像位置
+//	Point2f offset( (float)img1.cols, 0);  
+//	line( OutImage, scene_corners[0]+offset, scene_corners[1]+offset, Scalar( 0, 255, 0), 4 );
+//	line( OutImage, scene_corners[1]+offset, scene_corners[2]+offset, Scalar( 0, 255, 0), 4 );
+//	line( OutImage, scene_corners[2]+offset, scene_corners[3]+offset, Scalar( 0, 255, 0), 4 );
+//	line( OutImage, scene_corners[3]+offset, scene_corners[0]+offset, Scalar( 0, 255, 0), 4 );
+//	imshow( "Good Matches & Object detection", OutImage );
 //
+//	waitKey(0);
+//	imwrite("warp_position.jpg",OutImage);
+//
+//
+//	int drift = scene_corners[1].x;                                                        //储存偏移量
+//
+//	//新建一个矩阵存储配准后四角的位置
+//	int width = int(max(abs(scene_corners[1].x), abs(scene_corners[2].x)));
+//	int height= img1.rows;                                                                  //或者：int height = int(max(abs(scene_corners[2].y), abs(scene_corners[3].y)));
+//	float origin_x=0,origin_y=0;
+//	if(scene_corners[0].x<0) {
+//		if (scene_corners[3].x<0) origin_x+=min(scene_corners[0].x,scene_corners[3].x);
+//		else origin_x+=scene_corners[0].x;}
+//	width-=int(origin_x);
+//	if(scene_corners[0].y<0) {
+//		if (scene_corners[1].y) origin_y+=min(scene_corners[0].y,scene_corners[1].y);
+//		else origin_y+=scene_corners[0].y;}
+//	//可选：height-=int(origin_y);
+//	Mat imageturn=Mat::zeros(width,height,img1.type());
+//
+//	//获取新的变换矩阵，使图像完整显示
+//	for (int i=0;i<4;i++) {scene_corners[i].x -= origin_x; } 	//可选：scene_corners[i].y -= (float)origin_y; }
+//	Mat H1=getPerspectiveTransform(obj_corners, scene_corners);
+//
+//	//进行图像变换，显示效果
+//	warpPerspective(img1,imageturn,H1,Size(width,height));	
+//	imshow("image_Perspective", imageturn);
+//	waitKey(0);
+//
+//
+//	//图像融合
+//	int width_ol=width-int(inlier_minRx-origin_x);
+//	int start_x=int(inlier_minRx-origin_x);
+//	cout<<"width: "<<width<<endl;
+//	cout<<"img1.width: "<<img1.cols<<endl;
+//	cout<<"start_x: "<<start_x<<endl;
+//	cout<<"width_ol: "<<width_ol<<endl;
+//
+//	uchar* ptr=imageturn.data;
+//	double alpha=0, beta=1;
+//	for (int row=0;row<height;row++) {
+//		ptr=imageturn.data+row*imageturn.step+(start_x)*imageturn.elemSize();
+//		for(int col=0;col<width_ol;col++)
+//		{
+//			uchar* ptr_c1=ptr+imageturn.elemSize1();  uchar*  ptr_c2=ptr_c1+imageturn.elemSize1();
+//			uchar* ptr2=img2.data+row*img2.step+(col+int(inlier_minRx))*img2.elemSize();
+//			uchar* ptr2_c1=ptr2+img2.elemSize1();  uchar* ptr2_c2=ptr2_c1+img2.elemSize1();
+//
+//
+//			alpha=double(col)/double(width_ol); beta=1-alpha;
+//
+//			if (*ptr==0&&*ptr_c1==0&&*ptr_c2==0) {
+//				*ptr=(*ptr2);
+//				*ptr_c1=(*ptr2_c1);
+//				*ptr_c2=(*ptr2_c2);
+//			}
+//
+//			*ptr=(*ptr)*beta+(*ptr2)*alpha;
+//			*ptr_c1=(*ptr_c1)*beta+(*ptr2_c1)*alpha;
+//			*ptr_c2=(*ptr_c2)*beta+(*ptr2_c2)*alpha;
+//
+//			ptr+=imageturn.elemSize();
+//		}	}
+//
+//	//imshow("image_overlap", imageturn);
 //	//waitKey(0);
-//	//imwrite("warp_position.jpg",OutImage);
 //
+//	Mat img_result=Mat::zeros(height,width+img2.cols-drift,img1.type());
+//	uchar* ptr_r=imageturn.data;
 //
-//	//int drift = scene_corners[1].x;                                                        //储存偏移量
+//	for (int row=0;row<height;row++) {
+//		ptr_r=img_result.data+row*img_result.step;
 //
-//	////新建一个矩阵存储配准后四角的位置
-//	//int width = int(max(abs(scene_corners[1].x), abs(scene_corners[2].x)));
-//	//int height= img1.rows;                                                                  //或者：int height = int(max(abs(scene_corners[2].y), abs(scene_corners[3].y)));
-//	//float origin_x=0,origin_y=0;
-//	//if(scene_corners[0].x<0) {
-//	//	if (scene_corners[3].x<0) origin_x+=min(scene_corners[0].x,scene_corners[3].x);
-//	//	else origin_x+=scene_corners[0].x;}
-//	//width-=int(origin_x);
-//	//if(scene_corners[0].y<0) {
-//	//	if (scene_corners[1].y) origin_y+=min(scene_corners[0].y,scene_corners[1].y);
-//	//	else origin_y+=scene_corners[0].y;}
-//	////可选：height-=int(origin_y);
-//	//Mat imageturn=Mat::zeros(width,height,img1.type());
+//		for(int col=0;col<imageturn.cols;col++)
+//		{
+//			uchar* ptr_rc1=ptr_r+imageturn.elemSize1();  uchar*  ptr_rc2=ptr_rc1+imageturn.elemSize1();
 //
-//	////获取新的变换矩阵，使图像完整显示
-//	//for (int i=0;i<4;i++) {scene_corners[i].x -= origin_x; } 	//可选：scene_corners[i].y -= (float)origin_y; }
-//	//Mat H1=getPerspectiveTransform(obj_corners, scene_corners);
+//			uchar* ptr=imageturn.data+row*imageturn.step+col*imageturn.elemSize();
+//			uchar* ptr_c1=ptr+imageturn.elemSize1();  uchar*  ptr_c2=ptr_c1+imageturn.elemSize1();
 //
-//	////进行图像变换，显示效果
-//	//warpPerspective(img1,imageturn,H1,Size(width,height));	
-//	//imshow("image_Perspective", imageturn);
-//	//waitKey(0);
+//			*ptr_r=*ptr;
+//			*ptr_rc1=*ptr_c1;
+//			*ptr_rc2=*ptr_c2;
 //
+//			ptr_r+=img_result.elemSize();
+//		}	
 //
-//	////图像融合
-//	//int width_ol=width-int(inlier_minRx-origin_x);
-//	//int start_x=int(inlier_minRx-origin_x);
-//	//cout<<"width: "<<width<<endl;
-//	//cout<<"img1.width: "<<img1.cols<<endl;
-//	//cout<<"start_x: "<<start_x<<endl;
-//	//cout<<"width_ol: "<<width_ol<<endl;
+//		ptr_r=img_result.data+row*img_result.step+imageturn.cols*img_result.elemSize();
+//		for(int col=imageturn.cols;col<img_result.cols;col++)
+//		{
+//			uchar* ptr_rc1=ptr_r+imageturn.elemSize1();  uchar*  ptr_rc2=ptr_rc1+imageturn.elemSize1();
 //
-//	//uchar* ptr=imageturn.data;
-//	//double alpha=0, beta=1;
-//	//for (int row=0;row<height;row++) {
-//	//	ptr=imageturn.data+row*imageturn.step+(start_x)*imageturn.elemSize();
-//	//	for(int col=0;col<width_ol;col++)
-//	//	{
-//	//		uchar* ptr_c1=ptr+imageturn.elemSize1();  uchar*  ptr_c2=ptr_c1+imageturn.elemSize1();
-//	//		uchar* ptr2=img2.data+row*img2.step+(col+int(inlier_minRx))*img2.elemSize();
-//	//		uchar* ptr2_c1=ptr2+img2.elemSize1();  uchar* ptr2_c2=ptr2_c1+img2.elemSize1();
+//			uchar* ptr2=img2.data+row*img2.step+(col-imageturn.cols+drift)*img2.elemSize();
+//			uchar* ptr2_c1=ptr2+img2.elemSize1();  uchar* ptr2_c2=ptr2_c1+img2.elemSize1();
 //
+//			*ptr_r=*ptr2;
+//			*ptr_rc1=*ptr2_c1;
+//			*ptr_rc2=*ptr2_c2;
 //
-//	//		alpha=double(col)/double(width_ol); beta=1-alpha;
+//			ptr_r+=img_result.elemSize();
+//		}	
+//	}
 //
-//	//		if (*ptr==0&&*ptr_c1==0&&*ptr_c2==0) {
-//	//			*ptr=(*ptr2);
-//	//			*ptr_c1=(*ptr2_c1);
-//	//			*ptr_c2=(*ptr2_c2);
-//	//		}
-//
-//	//		*ptr=(*ptr)*beta+(*ptr2)*alpha;
-//	//		*ptr_c1=(*ptr_c1)*beta+(*ptr2_c1)*alpha;
-//	//		*ptr_c2=(*ptr_c2)*beta+(*ptr2_c2)*alpha;
-//
-//	//		ptr+=imageturn.elemSize();
-//	//	}	}
-//
-//	////imshow("image_overlap", imageturn);
-//	////waitKey(0);
-//
-//	//Mat img_result=Mat::zeros(height,width+img2.cols-drift,img1.type());
-//	//uchar* ptr_r=imageturn.data;
-//
-//	//for (int row=0;row<height;row++) {
-//	//	ptr_r=img_result.data+row*img_result.step;
-//
-//	//	for(int col=0;col<imageturn.cols;col++)
-//	//	{
-//	//		uchar* ptr_rc1=ptr_r+imageturn.elemSize1();  uchar*  ptr_rc2=ptr_rc1+imageturn.elemSize1();
-//
-//	//		uchar* ptr=imageturn.data+row*imageturn.step+col*imageturn.elemSize();
-//	//		uchar* ptr_c1=ptr+imageturn.elemSize1();  uchar*  ptr_c2=ptr_c1+imageturn.elemSize1();
-//
-//	//		*ptr_r=*ptr;
-//	//		*ptr_rc1=*ptr_c1;
-//	//		*ptr_rc2=*ptr_c2;
-//
-//	//		ptr_r+=img_result.elemSize();
-//	//	}	
-//
-//	//	ptr_r=img_result.data+row*img_result.step+imageturn.cols*img_result.elemSize();
-//	//	for(int col=imageturn.cols;col<img_result.cols;col++)
-//	//	{
-//	//		uchar* ptr_rc1=ptr_r+imageturn.elemSize1();  uchar*  ptr_rc2=ptr_rc1+imageturn.elemSize1();
-//
-//	//		uchar* ptr2=img2.data+row*img2.step+(col-imageturn.cols+drift)*img2.elemSize();
-//	//		uchar* ptr2_c1=ptr2+img2.elemSize1();  uchar* ptr2_c2=ptr2_c1+img2.elemSize1();
-//
-//	//		*ptr_r=*ptr2;
-//	//		*ptr_rc1=*ptr2_c1;
-//	//		*ptr_rc2=*ptr2_c2;
-//
-//	//		ptr_r+=img_result.elemSize();
-//	//	}	
-//	//}
-//
-//	//imshow("image_result", img_result);
-//	//imwrite("final_result.jpg",img_result);
+//	imshow("image_result", img_result);
+//	imwrite("final_result.jpg",img_result);
 //	return 0;
 //}
 //
